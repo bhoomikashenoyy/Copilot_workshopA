@@ -42,13 +42,15 @@ function mapGame(row: GameSelectionRow): Game {
     };
 }
 
-function baseGamesQuery(db: Database) {
+// The chained Drizzle builder type is intentionally inferred from the selected relations.
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const baseGamesQuery = (db: Database) => {
     return db
         .select(gameSelection)
         .from(games)
         .leftJoin(categories, eq(games.categoryId, categories.id))
         .leftJoin(publishers, eq(games.publisherId, publishers.id));
-}
+};
 
 /** All games ordered by title. */
 export async function getAllGames(db: Database): Promise<Game[]> {
