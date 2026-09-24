@@ -39,5 +39,12 @@ export default [
     languageOptions: {
       parser: tseslint.parser,
     },
+    rules: {
+      // Public and non-trivial helpers should expose their return contract.
+      "@typescript-eslint/explicit-function-return-type": [
+        "error",
+        { allowExpressions: true, allowTypedFunctionExpressions: true },
+      ],
+    },
   },
 ];
